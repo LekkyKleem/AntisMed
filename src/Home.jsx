@@ -1,15 +1,27 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './Home.styles';
 
 const Home = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Главное меню</Text>
-      <Button title="📅 Записаться на приём" onPress={() => navigation.navigate('PriemScreen')} />
-      <Button title="🏠 Вызвать врача на дом" onPress={() => {}} />
-      <Button title="📄 История обращений" onPress={() => {}} />
-      <Button title="🔙 Выйти из аккаунта" onPress={() => navigation.replace('LoginScreen')} />
+
+      <TouchableOpacity onPress={() => navigation.navigate('PriemScreen')} style={styles.button}>
+        <Text style={styles.buttonText}>📅 Записаться на приём</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => {navigation.navigate('CallDoctorScreen')}} style={styles.button}>
+        <Text style={styles.buttonText}>🏠 Вызвать врача на дом</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => navigation.navigate('AnaliseResultScreen')} style={styles.button}>
+        <Text style={styles.buttonText}>📊 Анализ результатов</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => navigation.replace('LoginScreen')} style={styles.button}>
+        <Text style={styles.buttonText}>🔙 Выйти из аккаунта</Text>
+      </TouchableOpacity>
     </View>
   );
 };

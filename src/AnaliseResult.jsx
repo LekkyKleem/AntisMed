@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import styles from './AnaliseResult.styles';
 
-const CallDoctor = ({navigation}) => {
+const AnaliseResult = ({navigation}) => {
     return(
         <View style={styles.container}>
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home')}>
@@ -12,4 +12,4 @@ const CallDoctor = ({navigation}) => {
     )
 }
 
-export default CallDoctor; 
+export default AnaliseResult; 

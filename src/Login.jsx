@@ -1,20 +1,15 @@
 import React from 'react';
-import { View, Button, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Text} from 'react-native';
+import styles from './Login.styles';
 
 const Login = ({ onPress }) => {
   return (
     <View style={styles.container}>
-      <Button title="Войти" onPress={onPress} />
+      <TouchableOpacity onPress={onPress} style={styles.button}>
+        <Text style={styles.buttonText}>Войти</Text>
+      </TouchableOpacity>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center', // центрирует кнопку по вертикали
-    alignItems: 'center',     // центрирует кнопку по горизонтали
-  },
-});
 
 export default Login;
