@@ -21,7 +21,7 @@ export default StyleSheet.create({
     backgroundColor: '#4a90e2',
     marginVertical: 10,
     paddingVertical: 12,
-    borderRadius: 8,
+    borderRadius: 5,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOpacity: 0.5,
