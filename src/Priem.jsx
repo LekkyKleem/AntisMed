@@ -58,7 +58,7 @@ const Priem = ({ navigation }) => {
 
       {freeDates.length > 0 ? (
         <ScrollView style={styles.freeContainerScroll} nestedScrollEnabled>
-          <Text style={[styles.title, { fontSize: 18, marginTop: 20, marginBottom: 10 }]}>
+          <Text style={[styles.title, { fontSize: 18 }]}>
             Свободные даты для записи:
           </Text>
           {freeDates.map(({ id, date, time }) => (
@@ -78,9 +78,14 @@ const Priem = ({ navigation }) => {
         )
       )}
 
-      <TouchableOpacity style={styles.returnButton} onPress={() => navigation.navigate('Home')}>
-        <Text style={styles.returnButtonText}>← Вернуться на главную</Text>
+      <View style={styles.NextButtonContainer} >
+      <TouchableOpacity style={styles.NextButton} onPress={() => navigation.navigate('CallDoctorScreen')}>
+        <Text style={styles.NextButtonText}>🏠 Вызвать врача на дом</Text>
       </TouchableOpacity>
+      <TouchableOpacity style={styles.NextButton} onPress={() => navigation.navigate('AnaliseResultScreen')}>
+        <Text style={styles.NextButtonText}>📋 Результаты анализов</Text>
+      </TouchableOpacity>
+      </View>
     </View>
   );
 };

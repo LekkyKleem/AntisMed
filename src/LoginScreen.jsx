@@ -10,7 +10,7 @@ const LoginScreen = ({ navigation }) => {
   const handleLogin = () => {
     if (iin.length === 12) {
       setModalVisible(false);
-      navigation.replace('Home');
+      navigation.navigate('PriemScreen', { iin });
     } else {
       alert('ИИН должен содержать 12 цифр');
     }

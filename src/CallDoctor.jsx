@@ -23,7 +23,6 @@ const CallDoctor = ({ navigation }) => {
       behavior={Platform.OS === "ios" ? "padding" : undefined}
     >
       <Text style={styles.title}>Вызов врача на дом</Text>
-
       <TextInput
         style={styles.input}
         placeholder="ФИО пациента"
@@ -45,15 +44,19 @@ const CallDoctor = ({ navigation }) => {
         onChangeText={setPhone}
         keyboardType="phone-pad"
       />
-
       <TouchableOpacity style={styles.button} onPress={handleCallDoctor}>
         <Text style={styles.buttonText}>Вызвать врача</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home')}>
-        <Text style={styles.buttonText}>Вернуться на главную</Text>
+      <View style={styles.NextButtonContainer} >
+      <TouchableOpacity style={styles.NextButton} onPress={() => navigation.navigate('PriemScreen')}>
+        <Text style={styles.NextButtonText}>📅 Записаться на приём</Text>
       </TouchableOpacity>
-    </KeyboardAvoidingView>
+      <TouchableOpacity style={styles.NextButton} onPress={() => navigation.navigate('AnaliseResultScreen')}>
+        <Text style={styles.NextButtonText}>📋 Результаты анализов</Text>
+      </TouchableOpacity>
+      </View>
+      </KeyboardAvoidingView>
   );
 };
 

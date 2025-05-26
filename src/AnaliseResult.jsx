@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, Linking  } from 'react-native';
 import styles from './AnaliseResult.styles';
 
 const analysisData = [
-  { id: '1', name: 'Общий анализ крови', date: '2025-05-10', result: 'В пределах нормы' },
-  { id: '2', name: 'Моча', date: '2025-05-12', result: 'Незначительные отклонения' },
-  { id: '3', name: 'Глюкоза', date: '2025-05-15', result: 'Повышена' },
+  { id: '1', name: 'Общий анализ крови', date: '2025-05-10', result: 'В пределах нормы', link: 'https://example.com/result1.pdf' },
+  { id: '2', name: 'Моча', date: '2025-05-12', result: 'Незначительные отклонения', link: 'https://example.com/result2.pdf' },
+  { id: '3', name: 'Глюкоза', date: '2025-05-15', result: 'Повышена', link: 'https://example.com/result3.pdf' },
 ];
 
 const AnaliseResult = ({ navigation }) => {
@@ -37,15 +37,24 @@ const AnaliseResult = ({ navigation }) => {
             </TouchableOpacity>
 
             {visibleResults.includes(item.id) && (
-              <Text style={styles.analysisResult}>Результат: {item.result}</Text>
-            )}
+            <TouchableOpacity onPress={() => Linking.openURL(item.link)}>
+              <Text style={[styles.analysisResult, { color: 'blue', textDecorationLine: 'none' }]}>
+                📎 Скачать PDF-Файл
+              </Text>
+            </TouchableOpacity>
+          )}
           </View>
         ))}
       </ScrollView>
 
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home')}>
-        <Text style={styles.buttonText}>Вернуться на главную</Text>
-      </TouchableOpacity>
+      <View style={styles.NextButtonContainer} >
+        <TouchableOpacity style={styles.NextButton} onPress={() => navigation.navigate('PriemScreen')}>
+          <Text style={styles.NextButtonText}>📅 Записаться на приём</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.NextButton} onPress={() => navigation.navigate('CallDoctorScreen')}>
+          <Text style={styles.NextButtonText}>🏠 Вызвать врача на дом</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

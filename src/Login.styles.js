@@ -13,10 +13,9 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#4a90e2', 
     paddingVertical: 15,
-    borderRadius: 10,           
-    width: '60%',               
+    borderRadius: 10,
+    width: '150',               
     alignItems: 'center',
-    marginVertical: 10,
   },
 
   buttonText: {
