@@ -15,6 +15,7 @@ const LoginScreen = ({ navigation }) => {
       alert('ИИН должен содержать 12 цифр');
     }
   };
+  
 
   return (
     <View style={styles.container}>

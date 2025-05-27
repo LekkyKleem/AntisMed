@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert, KeyboardAvoidingView, Platform } from 'react-native';
 import styles from './CallDoctor.styles';
 
-const CallDoctor = ({ navigation }) => {
+const CallDoctor = ({ navigation, route }) => {
+  const {iin} = route.params || {};
+
   const [fullName, setFullName] = useState('');
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
@@ -14,7 +16,6 @@ const CallDoctor = ({ navigation }) => {
     }
 
     Alert.alert('Успех', `Врач вызван по адресу:\n${address}\nПациент: ${fullName}\nТел: ${phone}`);
-    // Здесь можно отправить данные на сервер или сбросить форму
   };
 
   return (
@@ -23,9 +24,18 @@ const CallDoctor = ({ navigation }) => {
       behavior={Platform.OS === "ios" ? "padding" : undefined}
     >
       <Text style={styles.title}>Вызов врача на дом</Text>
+
       <TextInput
         style={styles.input}
-        placeholder="ФИО пациента"
+        placeholder="ИИН"
+        value={iin}
+        editable={false}
+        selectTextOnFocus={false}
+      />  
+
+      <TextInput
+        style={styles.input}
+        placeholder="ФИО"
         value={fullName}
         onChangeText={setFullName}
       />
@@ -44,19 +54,20 @@ const CallDoctor = ({ navigation }) => {
         onChangeText={setPhone}
         keyboardType="phone-pad"
       />
+
       <TouchableOpacity style={styles.button} onPress={handleCallDoctor}>
         <Text style={styles.buttonText}>Вызвать врача</Text>
       </TouchableOpacity>
 
-      <View style={styles.NextButtonContainer} >
-      <TouchableOpacity style={styles.NextButton} onPress={() => navigation.navigate('PriemScreen')}>
-        <Text style={styles.NextButtonText}>📅 Записаться на приём</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.NextButton} onPress={() => navigation.navigate('AnaliseResultScreen')}>
-        <Text style={styles.NextButtonText}>📋 Результаты анализов</Text>
-      </TouchableOpacity>
+      <View style={styles.NextButtonContainer}>
+        <TouchableOpacity style={styles.NextButton} onPress={() => navigation.navigate('PriemScreen', { iin })}>
+          <Text style={styles.NextButtonText}>📅 Записаться на приём</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.NextButton} onPress={() => navigation.navigate('AnaliseResultScreen', { iin })}>
+          <Text style={styles.NextButtonText}>📋 Результаты анализов</Text>
+        </TouchableOpacity>
       </View>
-      </KeyboardAvoidingView>
+    </KeyboardAvoidingView>
   );
 };
 

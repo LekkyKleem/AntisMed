@@ -106,4 +106,30 @@ export default StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
+
+  timeSlot: {
+    width: 80,
+    height: 40,
+    margin: 5,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: '#ddd',
+    borderRadius: 10,
+    textAlign: 'center',
+  },
+  timeSlotSelected: {
+    backgroundColor: '#4a90e2',
+  },
+  timeSlotText: {
+    color: '#000',
+  },
+  bookButton: {
+    marginTop: 20,
+    alignSelf: 'center',
+    backgroundColor: '#4a90e2',
+    paddingHorizontal: 30,
+    paddingVertical: 12,
+    borderRadius: 5,
+  },
+  
 });
