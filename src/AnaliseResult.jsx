@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, Linking  } from 'react-native';
+import { View, TouchableOpacity, ScrollView, Linking, Image } from 'react-native';
 import styles from './AnaliseResult.styles';
+import CustomText from './CustomText'
 
 const analysisData = [
   { id: '1', name: 'Общий анализ крови', date: '2025-05-10', result: 'В пределах нормы', link: 'https://example.com/result1.pdf' },
@@ -8,7 +9,8 @@ const analysisData = [
   { id: '3', name: 'Глюкоза', date: '2025-05-15', result: 'Повышена', link: 'https://example.com/result3.pdf' },
 ];
 
-const AnaliseResult = ({ navigation }) => {
+const AnaliseResult = ({ navigation, route }) => {
+  const { iin } = route.params || {};
   const [visibleResults, setVisibleResults] = useState([]);
 
   const toggleResult = (id) => {
@@ -19,40 +21,47 @@ const AnaliseResult = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Результаты анализов</Text>
+      <View style={styles.profileContainer}>
+        <TouchableOpacity style={styles.profileBtn} onPress={() => navigation.navigate('ProfileScreen', { iin })}>
+          <Image source={require('../assets/profileicon.png')} style={styles.profileIicon} />
+          <CustomText style={styles.profileBtnText}>Профиль</CustomText>
+        </TouchableOpacity>
+      </View>
+
+      <CustomText style={styles.title}>Результаты анализов</CustomText>
 
       <ScrollView style={styles.scroll}>
         {analysisData.map((item) => (
           <View key={item.id} style={styles.analysisItem}>
-            <Text style={styles.analysisName}>{item.name}</Text>
-            <Text style={styles.analysisDate}>Дата: {item.date}</Text>
+            <CustomText style={styles.analysisName}>{item.name}</CustomText>
+            <CustomText style={styles.analysisDate}>Дата: {item.date}</CustomText>
 
             <TouchableOpacity
               style={styles.resultButton}
               onPress={() => toggleResult(item.id)}
             >
-              <Text style={styles.resultButtonText}>
+              <CustomText style={styles.resultButtonText}>
                 {visibleResults.includes(item.id) ? 'Скрыть результат' : 'Показать результат'}
-              </Text>
+              </CustomText>
             </TouchableOpacity>
 
             {visibleResults.includes(item.id) && (
-            <TouchableOpacity onPress={() => Linking.openURL(item.link)}>
-              <Text style={[styles.analysisResult, { color: 'blue', textDecorationLine: 'none' }]}>
-                📎 Скачать PDF-Файл
-              </Text>
-            </TouchableOpacity>
-          )}
+              <TouchableOpacity onPress={() => Linking.openURL(item.link)}>
+                <CustomText style={[styles.analysisResult, { color: 'blue', textDecorationLine: 'none' }]}>
+                  📎 Скачать PDF-Файл
+                </CustomText>
+              </TouchableOpacity>
+            )}
           </View>
         ))}
       </ScrollView>
 
-      <View style={styles.NextButtonContainer} >
+      <View style={styles.NextButtonContainer}>
         <TouchableOpacity style={styles.NextButton} onPress={() => navigation.navigate('PriemScreen')}>
-          <Text style={styles.NextButtonText}>📅 Записаться на приём</Text>
+          <CustomText style={styles.NextButtonText}>📅 Записаться на приём</CustomText>
         </TouchableOpacity>
         <TouchableOpacity style={styles.NextButton} onPress={() => navigation.navigate('CallDoctorScreen')}>
-          <Text style={styles.NextButtonText}>🏠 Вызвать врача на дом</Text>
+          <CustomText style={styles.NextButtonText}>🏠 Вызвать врача на дом</CustomText>
         </TouchableOpacity>
       </View>
     </View>

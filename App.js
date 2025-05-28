@@ -5,6 +5,7 @@ import LoginScreen from './src/LoginScreen';
 import Priem from './src/Priem';
 import AnaliseResult from './src/AnaliseResult';
 import CallDoctor from './src/CallDoctor';
+import Profile from './src/Profile';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,7 +17,7 @@ export default function App() {
         <Stack.Screen name="PriemScreen" component={Priem} />
         <Stack.Screen name="AnaliseResultScreen" component={AnaliseResult} />
         <Stack.Screen name="CallDoctorScreen" component={CallDoctor} />
-
+        <Stack.Screen name="ProfileScreen" component={Profile} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -40,5 +40,6 @@ export default StyleSheet.create({
   cancelText: {
     color: 'red',
     marginTop: 20,
+    fontFamily: 'AvenirNext-Regular',
   },
 });

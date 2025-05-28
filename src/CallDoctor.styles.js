@@ -3,6 +3,8 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
     container: {
         flex: 1,
+        padding: 20,
+        paddingTop: 50,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#f9fafe',
@@ -82,6 +84,44 @@ export default StyleSheet.create({
       NextButtonText: {
         color: '#fff',
         fontSize: 16,
+        fontWeight: '600',
+      },
+
+      profileContainer: {
+        position: 'absolute',
+        top: 40,
+        right: 20,
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'flex-end',
+        justifyContent: 'space-between',
+        padding: 10,
+      },
+      profileIicon: {
+        width: 50,
+        height: 50,
+      },
+    
+      profileBtn: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        borderRadius: 15,
+        shadowColor: '#000',
+        shadowOpacity: 0.5,
+        shadowOffset: { width: 0, height: 1 },
+        shadowRadius: 2,
+        elevation: 2,
+        borderWidth: 3,
+        borderColor: '#4a90e2',
+        gap: 10,
+      },
+    
+      profileBtnText: {
+        fontSize: 20,
+        color: '#4a90e2',
         fontWeight: '600',
       },
   });

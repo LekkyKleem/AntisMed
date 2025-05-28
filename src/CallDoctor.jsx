@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, TextInput, TouchableOpacity, Alert, KeyboardAvoidingView, Platform, Image } from 'react-native';
 import styles from './CallDoctor.styles';
+import CustomText from './CustomText';
 
 const CallDoctor = ({ navigation, route }) => {
-  const {iin} = route.params || {};
+  const { iin } = route.params || {};
 
   const [fullName, setFullName] = useState('');
   const [address, setAddress] = useState('');
@@ -19,11 +20,21 @@ const CallDoctor = ({ navigation, route }) => {
   };
 
   return (
-    <KeyboardAvoidingView 
-      style={styles.container} 
+    <KeyboardAvoidingView
+      style={styles.container}
       behavior={Platform.OS === "ios" ? "padding" : undefined}
     >
-      <Text style={styles.title}>Вызов врача на дом</Text>
+      <View style={styles.profileContainer}>
+        <TouchableOpacity
+          style={styles.profileBtn}
+          onPress={() => navigation.navigate('ProfileScreen', { iin })}
+        >
+          <Image source={require('../assets/profileicon.png')} style={styles.profileIicon} />
+          <CustomText style={styles.profileBtnText}>Профиль</CustomText>
+        </TouchableOpacity>
+      </View>
+
+      <CustomText style={styles.title}>Вызов врача на дом</CustomText>
 
       <TextInput
         style={styles.input}
@@ -31,7 +42,7 @@ const CallDoctor = ({ navigation, route }) => {
         value={iin}
         editable={false}
         selectTextOnFocus={false}
-      />  
+      />
 
       <TextInput
         style={styles.input}
@@ -56,15 +67,15 @@ const CallDoctor = ({ navigation, route }) => {
       />
 
       <TouchableOpacity style={styles.button} onPress={handleCallDoctor}>
-        <Text style={styles.buttonText}>Вызвать врача</Text>
+        <CustomText style={styles.buttonText}>Вызвать врача</CustomText>
       </TouchableOpacity>
 
       <View style={styles.NextButtonContainer}>
         <TouchableOpacity style={styles.NextButton} onPress={() => navigation.navigate('PriemScreen', { iin })}>
-          <Text style={styles.NextButtonText}>📅 Записаться на приём</Text>
+          <CustomText style={styles.NextButtonText}>📅 Записаться на приём</CustomText>
         </TouchableOpacity>
         <TouchableOpacity style={styles.NextButton} onPress={() => navigation.navigate('AnaliseResultScreen', { iin })}>
-          <Text style={styles.NextButtonText}>📋 Результаты анализов</Text>
+          <CustomText style={styles.NextButtonText}>📋 Результаты анализов</CustomText>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>

@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Modal,
   View,
-  Text,
   TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -10,6 +9,7 @@ import {
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import styles from './ModalWindow.styles';
+import CustomText from '../../../CustomText'
 
 const ModalWindow = ({ visible, onClose, onLogin, iin, setIin }) => {
   return (
@@ -27,7 +27,8 @@ const ModalWindow = ({ visible, onClose, onLogin, iin, setIin }) => {
             duration={1000}
             style={styles.modalContainer}
           >
-            <Text style={styles.title}>Вход по ИИН</Text>
+            <CustomText style={styles.title}>Вход по ИИН</CustomText>
+
             <TextInput
               style={styles.input}
               placeholder="Введите ИИН"
@@ -36,11 +37,13 @@ const ModalWindow = ({ visible, onClose, onLogin, iin, setIin }) => {
               value={iin}
               onChangeText={setIin}
             />
+
             <TouchableOpacity style={styles.loginButton} onPress={onLogin}>
-              <Text style={styles.loginText}>Войти</Text>
+              <CustomText style={styles.loginText}>Войти</CustomText>
             </TouchableOpacity>
+
             <TouchableOpacity onPress={onClose}>
-              <Text style={styles.cancelText}>Отмена</Text>
+              <CustomText style={styles.cancelText}>Отмена</CustomText>
             </TouchableOpacity>
           </Animatable.View>
         </View>

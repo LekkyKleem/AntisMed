@@ -1,31 +1,23 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Alert, ScrollView } from 'react-native';
+import { View, TouchableOpacity, Alert, Image } from 'react-native';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
+import styles from './Priem.styles';
+import CustomText from './CustomText';
+
 LocaleConfig.locales['ru'] = {
   monthNames: ['Январь','Февраль','Март','Апрель',
     'Май','Июнь','Июль','Август',
     'Сентябрь','Октябрь','Ноябрь','Декабрь',
   ],
-  monthNamesShort: ['Янв.','Февр.','Март','Апр.',
-    'Май','Июнь','Июль','Авг.',
-    'Сент.','Окт.','Нояб.','Дек.',
-  ],
+  monthNamesShort: ['Янв.','Февр.','Март','Апр.','Май','Июнь','Июль','Авг.','Сент.','Окт.','Нояб.','Дек.'],
   dayNames: [
-    'Воскресенье',
-    'Понедельник',
-    'Вторник',
-    'Среда',
-    'Четверг',
-    'Пятница',
-    'Суббота',
+    'Воскресенье','Понедельник','Вторник','Среда','Четверг','Пятница','Суббота',
   ],
   dayNamesShort: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
   today: 'Сегодня',
 };
 
 LocaleConfig.defaultLocale = 'ru';
-
-import styles from './Priem.styles';
 
 const months = [
   'января', 'февраля', 'марта', 'апреля', 'мая',
@@ -80,7 +72,14 @@ const Priem = ({ navigation, route }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Выберите дату для записи:</Text>
+      <View style={styles.profileContainer}>
+        <TouchableOpacity style={styles.profileBtn} onPress={() => navigation.navigate('ProfileScreen', { iin })}>
+          <Image source={require('../assets/profileicon.png')} style={styles.profileIicon} />
+          <CustomText style={styles.profileBtnText}>Профиль</CustomText>
+        </TouchableOpacity>
+      </View>
+
+      <CustomText style={styles.title}>Выберите дату для записи:</CustomText>
 
       <Calendar
         style={styles.calendar}
@@ -92,7 +91,7 @@ const Priem = ({ navigation, route }) => {
 
       {freeDates.length > 0 ? (
         <>
-          <Text style={[styles.title, { fontSize: 18 }]}>Доступное время:</Text>
+          <CustomText style={[styles.title, { fontSize: 18 }]}>Доступное время:</CustomText>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
             {freeDates.map(({ id, time }) => (
               <TouchableOpacity
@@ -103,16 +102,16 @@ const Priem = ({ navigation, route }) => {
                 ]}
                 onPress={() => setSelectedTime(time)}
               >
-                <Text style={styles.timeSlotText}>{time}</Text>
+                <CustomText style={styles.timeSlotText}>{time}</CustomText>
               </TouchableOpacity>
             ))}
           </View>
         </>
       ) : (
         selectedDate && (
-          <Text style={{ marginTop: 25, fontSize: 14, textAlign: 'center' }}>
+          <CustomText style={{ marginTop: 25, fontSize: 14, textAlign: 'center' }}>
             Нет свободных времён для выбранной даты.
-          </Text>
+          </CustomText>
         )
       )}
 
@@ -121,16 +120,16 @@ const Priem = ({ navigation, route }) => {
           style={styles.bookButton}
           onPress={() => bookFreeDate(selectedDate, selectedTime)}
         >
-          <Text style={styles.buttonText}>Записаться</Text>
+          <CustomText style={styles.buttonText}>Записаться</CustomText>
         </TouchableOpacity>
       )}
 
       <View style={styles.NextButtonContainer}>
         <TouchableOpacity style={styles.NextButton} onPress={() => navigation.navigate('CallDoctorScreen', { iin })}>
-          <Text style={styles.NextButtonText}>🏠 Вызвать врача на дом</Text>
+          <CustomText style={styles.NextButtonText}>🏠 Вызвать врача на дом</CustomText>
         </TouchableOpacity>
         <TouchableOpacity style={styles.NextButton} onPress={() => navigation.navigate('AnaliseResultScreen', { iin })}>
-          <Text style={styles.NextButtonText}>📋 Результаты анализов</Text>
+          <CustomText style={styles.NextButtonText}>📋 Результаты анализов</CustomText>
         </TouchableOpacity>
       </View>
     </View>
