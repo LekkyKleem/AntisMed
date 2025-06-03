@@ -7,39 +7,52 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  modalContainer: {
+  modal: {
     backgroundColor: 'white',
-    width: '80%',
+    width: '85%',
     padding: 20,
     borderRadius: 10,
-    alignItems: 'center',
+    elevation: 5,
+    position: 'relative',
   },
   title: {
-    fontSize: 18,
-    marginBottom: 10,
+    fontSize: 20,
     fontWeight: 'bold',
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+  label: {
+    fontSize: 14,
+    marginBottom: 10,
+    textAlign: 'center',
   },
   input: {
     width: '100%',
     borderColor: 'gray',
-    borderWidth: 2,
-    padding: 15,
-    borderRadius: 3,
-    marginBottom: 15,
+    borderWidth: 1.5,
+    padding: 12,
+    borderRadius: 5,
+    marginBottom: 12,
   },
-  loginButton: {
-    backgroundColor: 'green',
-    paddingVertical: 10,
+  button: {
+    backgroundColor: '#3A7AFE',
+    paddingVertical: 12,
     paddingHorizontal: 15,
     borderRadius: 5,
+    marginTop: 10,
   },
-  loginText: {
+  buttonText: {
     color: 'white',
-    fontWeight: '700',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
-  cancelText: {
+  closeButton: {
+    marginTop: 15,
+    alignItems: 'center',
+  },
+  closeButtonText: {
     color: 'red',
-    marginTop: 20,
-    fontFamily: 'AvenirNext-Regular',
+    fontWeight: 'bold',
+    fontSize: 16,
   },
 });

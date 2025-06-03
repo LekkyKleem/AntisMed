@@ -2,52 +2,103 @@ import React from 'react';
 import {
   Modal,
   View,
+  Text,
   TextInput,
   TouchableOpacity,
-  TouchableWithoutFeedback,
-  Keyboard,
+  ActivityIndicator,
 } from 'react-native';
-import * as Animatable from 'react-native-animatable';
 import styles from './ModalWindow.styles';
-import CustomText from '../../../CustomText'
 
-const ModalWindow = ({ visible, onClose, onLogin, iin, setIin }) => {
+const ModalWindow = ({
+  visible,
+  onClose,
+  iin,
+  setIin,
+  phoneNumber,
+  setPhoneNumber,
+  verificationCode,
+  setVerificationCode,
+  step,
+  onStartAuth,
+  onCompleteAuth,
+  loading,
+}) => {
   return (
-    <Modal
-      transparent={true}
-      visible={visible}
-      animationType="none"
-      hardwareAccelerated={true}
-      onRequestClose={onClose}
-    >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.overlay}>
-          <Animatable.View
-            animation="slideInDown"
-            duration={1000}
-            style={styles.modalContainer}
+    <Modal visible={visible} animationType="slide" transparent={true} onRequestClose={onClose}>
+      <View style={styles.overlay}>
+        <View style={styles.modal}>
+          {step === 1 && (
+            <>
+              <Text style={styles.title}>Введите ИИН</Text>
+              <TextInput
+                style={styles.input}
+                keyboardType="numeric"
+                maxLength={12}
+                value={iin}
+                onChangeText={setIin}
+                editable={!loading}
+              />
+              <Text style={styles.label}>Введите номер телефона</Text>
+              <TextInput
+                style={styles.input}
+                keyboardType="phone-pad"
+                maxLength={11}
+                value={phoneNumber}
+                onChangeText={setPhoneNumber}
+                editable={!loading}
+              />
+              <TouchableOpacity
+                style={styles.button}
+                onPress={onStartAuth}
+                disabled={loading}
+              >
+                <Text style={styles.buttonText}>Начать авторизацию</Text>
+              </TouchableOpacity>
+            </>
+          )}
+
+          {step === 2 && (
+            <>
+              <Text style={styles.title}>Введите код подтверждения</Text>
+              <TextInput
+                style={styles.input}
+                keyboardType="numeric"
+                value={verificationCode}
+                onChangeText={setVerificationCode}
+                editable={!loading}
+              />
+              <TouchableOpacity
+                style={styles.button}
+                onPress={onCompleteAuth}
+                disabled={loading}
+              >
+                <Text style={styles.buttonText}>Подтвердить</Text>
+              </TouchableOpacity>
+            </>
+          )}
+
+          <TouchableOpacity
+            style={styles.closeButton}
+            onPress={onClose}
+            disabled={loading}
           >
-            <CustomText style={styles.title}>Вход по ИИН</CustomText>
+            <Text style={styles.closeButtonText}>Закрыть</Text>
+          </TouchableOpacity>
 
-            <TextInput
-              style={styles.input}
-              placeholder="Введите ИИН"
-              keyboardType="numeric"
-              maxLength={12}
-              value={iin}
-              onChangeText={setIin}
-            />
-
-            <TouchableOpacity style={styles.loginButton} onPress={onLogin}>
-              <CustomText style={styles.loginText}>Войти</CustomText>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={onClose}>
-              <CustomText style={styles.cancelText}>Отмена</CustomText>
-            </TouchableOpacity>
-          </Animatable.View>
+          {loading && (
+            <View style={{
+              position: 'absolute',
+              top: 0, left: 0, right: 0, bottom: 0,
+              backgroundColor: 'rgba(255,255,255,0.7)',
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: 10,
+            }}>
+              <ActivityIndicator size="large" color="#3A7AFE" />
+            </View>
+          )}
         </View>
-      </TouchableWithoutFeedback>
+      </View>
     </Modal>
   );
 };

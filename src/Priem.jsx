@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Alert, Image } from 'react-native';
+import { View, TouchableOpacity, Alert, Image, StyleSheet } from 'react-native';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
-import styles from './Priem.styles';
 import CustomText from './CustomText';
+import styles from './Priem.styles';
 
 LocaleConfig.locales['ru'] = {
-  monthNames: ['Январь','Февраль','Март','Апрель',
+  monthNames: [
+    'Январь','Февраль','Март','Апрель',
     'Май','Июнь','Июль','Август',
     'Сентябрь','Октябрь','Ноябрь','Декабрь',
   ],
@@ -16,7 +17,6 @@ LocaleConfig.locales['ru'] = {
   dayNamesShort: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
   today: 'Сегодня',
 };
-
 LocaleConfig.defaultLocale = 'ru';
 
 const months = [
@@ -49,6 +49,21 @@ const Priem = ({ navigation, route }) => {
     { id: '7', date: '2025-05-26', time: '10:00' },
   ];
 
+  // Собираем объект для markedDates — подсвечиваем выбранную дату и отмечаем свободные даты точками
+  const markedDates = {
+    ...(selectedDate ? { [selectedDate]: { selected: true, selectedColor: '#4a90e2' } } : {}),
+  };
+
+  exampleFreeDates.forEach(({ date }) => {
+    if (!markedDates[date]) {
+      markedDates[date] = { marked: true, dotColor: '#4a90e2' };
+    } else if (markedDates[date].selected) {
+      // Если дата выбрана, добавляем точку к выделению (чтобы был и фон, и точка)
+      markedDates[date].marked = true;
+      markedDates[date].dotColor = '#4a90e2';
+    }
+  });
+
   const onDateSelect = (day) => {
     const dateString = day.dateString;
     setSelectedDate(dateString);
@@ -57,7 +72,6 @@ const Priem = ({ navigation, route }) => {
     const filteredFreeDates = exampleFreeDates.filter(
       (item) => item.date === dateString
     );
-
     setFreeDates(filteredFreeDates);
   };
 
@@ -73,8 +87,14 @@ const Priem = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       <View style={styles.profileContainer}>
-        <TouchableOpacity style={styles.profileBtn} onPress={() => navigation.navigate('ProfileScreen', { iin })}>
-          <Image source={require('../assets/profileicon.png')} style={styles.profileIicon} />
+        <TouchableOpacity
+          style={styles.profileBtn}
+          onPress={() => navigation.navigate('ProfileScreen', { iin })}
+        >
+          <Image
+            source={require('../assets/profileicon.png')}
+            style={styles.profileIcon}
+          />
           <CustomText style={styles.profileBtnText}>Профиль</CustomText>
         </TouchableOpacity>
       </View>
@@ -83,16 +103,16 @@ const Priem = ({ navigation, route }) => {
 
       <Calendar
         style={styles.calendar}
-        markedDates={{
-          [selectedDate]: { selected: true, selectedColor: '#4a90e2' },
-        }}
+        markedDates={markedDates}
         onDayPress={onDateSelect}
       />
 
       {freeDates.length > 0 ? (
         <>
-          <CustomText style={[styles.title, { fontSize: 18 }]}>Доступное время:</CustomText>
-          <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <CustomText style={[styles.title, { fontSize: 18 }]}>
+            Доступное время:
+          </CustomText>
+          <View style={styles.timeSlotsContainer}>
             {freeDates.map(({ id, time }) => (
               <TouchableOpacity
                 key={id}
@@ -109,27 +129,32 @@ const Priem = ({ navigation, route }) => {
         </>
       ) : (
         selectedDate && (
-          <CustomText style={{ marginTop: 25, fontSize: 14, textAlign: 'center' }}>
+          <CustomText style={styles.noFreeTimesText}>
             Нет свободных времён для выбранной даты.
           </CustomText>
         )
       )}
 
-      {freeDates.length > 0 && (
-        <TouchableOpacity
-          style={styles.bookButton}
-          onPress={() => bookFreeDate(selectedDate, selectedTime)}
-        >
-          <CustomText style={styles.buttonText}>Записаться</CustomText>
-        </TouchableOpacity>
-      )}
+      <TouchableOpacity
+        style={[styles.bookButton, !selectedTime && styles.bookButtonDisabled]}
+        onPress={() => bookFreeDate(selectedDate, selectedTime)}
+        disabled={!selectedTime}
+      >
+        <CustomText style={styles.buttonText}>Записаться</CustomText>
+      </TouchableOpacity>
 
-      <View style={styles.NextButtonContainer}>
-        <TouchableOpacity style={styles.NextButton} onPress={() => navigation.navigate('CallDoctorScreen', { iin })}>
-          <CustomText style={styles.NextButtonText}>🏠 Вызвать врача на дом</CustomText>
+      <View style={styles.nextButtonContainer}>
+        <TouchableOpacity
+          style={styles.nextButton}
+          onPress={() => navigation.navigate('CallDoctorScreen', { iin })}
+        >
+          <CustomText style={styles.nextButtonText}>🏠 Вызвать врача на дом</CustomText>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.NextButton} onPress={() => navigation.navigate('AnaliseResultScreen', { iin })}>
-          <CustomText style={styles.NextButtonText}>📋 Результаты анализов</CustomText>
+        <TouchableOpacity
+          style={styles.nextButton}
+          onPress={() => navigation.navigate('AnaliseResultScreen', { iin })}
+        >
+          <CustomText style={styles.nextButtonText}>📋 Результаты анализов</CustomText>
         </TouchableOpacity>
       </View>
     </View>

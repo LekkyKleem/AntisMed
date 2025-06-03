@@ -42,33 +42,7 @@ export default StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
-  freeContainerScroll: {
-    marginTop: -20,
-    maxHeight: 250,
-
-  },
-  freeDateRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: '#fff',
-    padding: 15,
-    borderRadius: 8,
-    marginBottom: 10,
-    shadowColor: '#000',
-    shadowOpacity: 0.3,
-    shadowOffset: { width: 0, height: 1 },
-    shadowRadius: 2,
-    elevation: 1,
-    width: '90%',
-    alignSelf: 'center',
-  },
-  freeDateText: {
-    fontSize: 15,
-    fontWeight: '500',
-    color: '#333',
-  },
-  NextButtonContainer: {
+  nextButtonContainer: {
     position: 'absolute',
     bottom: 20,
     left: 20,
@@ -84,12 +58,11 @@ export default StyleSheet.create({
     shadowRadius: 4,
     elevation: 4,
   },
-  
-  NextButton: {
+  nextButton: {
     alignSelf: 'center',
     backgroundColor: '#4a90e2',
     width: '45%',
-    height: '75',
+    height: 75,
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderRadius: 10,
@@ -100,13 +73,17 @@ export default StyleSheet.create({
     shadowRadius: 3,
     elevation: 3,
   },
-
-  NextButtonText: {
+  nextButtonText: {
     color: '#fff',
     fontSize: 16,
     fontWeight: '600',
   },
-
+  timeSlotsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  
   timeSlot: {
     width: 80,
     height: 40,
@@ -116,12 +93,15 @@ export default StyleSheet.create({
     backgroundColor: '#ddd',
     borderRadius: 10,
     textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   timeSlotSelected: {
     backgroundColor: '#4a90e2',
   },
   timeSlotText: {
     color: '#000',
+    fontSize: 14,
   },
   bookButton: {
     marginTop: 20,
@@ -131,18 +111,16 @@ export default StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 5,
   },
-
   profileContainer: {
     position: 'absolute',
     top: 40,
     right: 20,
     padding: 10,
   },
-  profileIicon: {
+  profileIcon: {
     width: 50,
     height: 50,
   },
-
   profileBtn: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -159,7 +137,6 @@ export default StyleSheet.create({
     borderColor: '#4a90e2',
     gap: 10,
   },
-
   profileBtnText: {
     fontSize: 20,
     color: '#4a90e2',

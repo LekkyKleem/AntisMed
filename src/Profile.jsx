@@ -70,5 +70,4 @@ const ProfileScreen = ({ navigation, route }) => {
     </View>
   );
 };
-
 export default ProfileScreen;
